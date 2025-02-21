@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useAccount } from "wagmi";
 import "./NgoSignupForm.css";
+import CloudinaryUpload from "../../config/cloudinary";
 
 const NgoSignupForm: React.FC = () => {
   const { address, isConnected } = useAccount();
   const [formData, setFormData] = useState({ ngoName: "", description: "" });
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -16,8 +19,18 @@ const NgoSignupForm: React.FC = () => {
       alert("Please connect your wallet to sign up");
       return;
     }
+
+
     console.log("NGO Details:", { ...formData, walletAddress: address });
+
   };
+
+  const handleImageUpload = (url: string) => {
+    setImageUrl(url);
+    setFormData((prevData) => ({ ...prevData, imageUrl: url }));
+  };
+
+  
 
   return (
     <div className="form-container">
@@ -40,6 +53,7 @@ const NgoSignupForm: React.FC = () => {
           onChange={handleChange}
           required
         />
+        {<CloudinaryUpload onUpload={handleImageUpload} />}
         <button type="submit">Sign Up</button>
       </form>
       {isConnected && <p>Connected Wallet: {address}</p>}
