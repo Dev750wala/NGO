@@ -213,7 +213,7 @@ contract CryptoDonationPlatform is Ownable, ReentrancyGuard {
         emit FundsRefunded(_donationId, msg.sender, amount);
     }
 
-    // Slash voter for miscellaneous activity (admin only for now)
+    // Slash voter for miscellaneous activity (admin  only for now)
     function slashVoter(address _voter) external onlyOwner {
         Voter storage voter = voters[_voter];
         require(voter.isActive, "Not an active voter");
