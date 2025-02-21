@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Users\\sadis\\Desktop\\NGO\\hardhat-back\\contracts\\CryptoDonationPlatform.sol": {
-      "lastModificationDate": 1740156821836,
-      "contentHash": "4053d7201af7a6bdc1778ea63b06ed7d",
+      "lastModificationDate": 1740169983212,
+      "contentHash": "1b9377cfabc2fee1485439bd637d6189",
       "sourceName": "contracts/CryptoDonationPlatform.sol",
       "solcConfig": {
         "version": "0.8.28",
@@ -38,7 +38,7 @@
       },
       "imports": [],
       "versionPragmas": [
-        "0.8.28"
+        "^0.8.8"
       ],
       "artifacts": [
         "NGOFunding"

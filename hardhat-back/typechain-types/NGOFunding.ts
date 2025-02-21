@@ -64,6 +64,7 @@ export interface NGOFundingInterface extends Interface {
       | "tasks"
       | "vote"
       | "voters"
+      | "withdrawNgoStake"
       | "withdrawVoterStake"
   ): FunctionFragment;
 
@@ -71,6 +72,7 @@ export interface NGOFundingInterface extends Interface {
     nameOrSignatureOrTopic:
       | "Donated"
       | "NGORegistered"
+      | "NGOStakeWithdrawn"
       | "TaskCreated"
       | "TaskResolved"
       | "Voted"
@@ -162,6 +164,10 @@ export interface NGOFundingInterface extends Interface {
   ): string;
   encodeFunctionData(functionFragment: "voters", values: [AddressLike]): string;
   encodeFunctionData(
+    functionFragment: "withdrawNgoStake",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "withdrawVoterStake",
     values?: undefined
   ): string;
@@ -233,6 +239,10 @@ export interface NGOFundingInterface extends Interface {
   decodeFunctionResult(functionFragment: "vote", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "voters", data: BytesLike): Result;
   decodeFunctionResult(
+    functionFragment: "withdrawNgoStake",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "withdrawVoterStake",
     data: BytesLike
   ): Result;
@@ -269,6 +279,19 @@ export namespace NGORegisteredEvent {
   export interface OutputObject {
     ngo: string;
     name: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace NGOStakeWithdrawnEvent {
+  export type InputTuple = [ngo: AddressLike, amount: BigNumberish];
+  export type OutputTuple = [ngo: string, amount: bigint];
+  export interface OutputObject {
+    ngo: string;
+    amount: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -516,6 +539,8 @@ export interface NGOFunding extends BaseContract {
 
   voters: TypedContractMethod<[arg0: AddressLike], [bigint], "view">;
 
+  withdrawNgoStake: TypedContractMethod<[], [void], "nonpayable">;
+
   withdrawVoterStake: TypedContractMethod<[], [void], "nonpayable">;
 
   getFunction<T extends ContractMethod = ContractMethod>(
@@ -675,6 +700,9 @@ export interface NGOFunding extends BaseContract {
     nameOrSignature: "voters"
   ): TypedContractMethod<[arg0: AddressLike], [bigint], "view">;
   getFunction(
+    nameOrSignature: "withdrawNgoStake"
+  ): TypedContractMethod<[], [void], "nonpayable">;
+  getFunction(
     nameOrSignature: "withdrawVoterStake"
   ): TypedContractMethod<[], [void], "nonpayable">;
 
@@ -691,6 +719,13 @@ export interface NGOFunding extends BaseContract {
     NGORegisteredEvent.InputTuple,
     NGORegisteredEvent.OutputTuple,
     NGORegisteredEvent.OutputObject
+  >;
+  getEvent(
+    key: "NGOStakeWithdrawn"
+  ): TypedContractEvent<
+    NGOStakeWithdrawnEvent.InputTuple,
+    NGOStakeWithdrawnEvent.OutputTuple,
+    NGOStakeWithdrawnEvent.OutputObject
   >;
   getEvent(
     key: "TaskCreated"
@@ -742,6 +777,17 @@ export interface NGOFunding extends BaseContract {
       NGORegisteredEvent.InputTuple,
       NGORegisteredEvent.OutputTuple,
       NGORegisteredEvent.OutputObject
+    >;
+
+    "NGOStakeWithdrawn(address,uint256)": TypedContractEvent<
+      NGOStakeWithdrawnEvent.InputTuple,
+      NGOStakeWithdrawnEvent.OutputTuple,
+      NGOStakeWithdrawnEvent.OutputObject
+    >;
+    NGOStakeWithdrawn: TypedContractEvent<
+      NGOStakeWithdrawnEvent.InputTuple,
+      NGOStakeWithdrawnEvent.OutputTuple,
+      NGOStakeWithdrawnEvent.OutputObject
     >;
 
     "TaskCreated(uint256,address)": TypedContractEvent<
