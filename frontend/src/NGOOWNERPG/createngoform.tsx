@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { useAccount } from "wagmi";
 import "./NgoSignupForm.css";
+import { address as contractAddress, abi as contractAbi} from "../../../hardhat-back/deployments/ganache/NGOFunding.json";
+import { useWriteContract } from "wagmi";
 
 const NgoSignupForm: React.FC = () => {
+  const { data: hash, isPending, writeContract } = useWriteContract()
   const { address, isConnected } = useAccount();
   const [formData, setFormData] = useState({ ngoName: "", description: "" });
 
@@ -17,6 +20,13 @@ const NgoSignupForm: React.FC = () => {
       return;
     }
     console.log("NGO Details:", { ...formData, walletAddress: address });
+    
+    writeContract({
+      address: `0x${contractAddress.split('0x')[1]}`,
+      abi: contractAbi,
+      functionName: 'registerNGO',
+      args: [formData.ngoName as string, formData.description as string],
+    })
   };
 
   return (
@@ -40,7 +50,7 @@ const NgoSignupForm: React.FC = () => {
           onChange={handleChange}
           required
         />
-        <button type="submit">Sign Up</button>
+        <button type="submit">{isPending ? 'Confirming...' : 'Sign Up'}</button>
       </form>
       {isConnected && <p>Connected Wallet: {address}</p>}
     </div>

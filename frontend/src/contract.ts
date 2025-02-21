@@ -1,0 +1,1 @@
+import { address, abi } from "../../hardhat-back/deployments/ganache/NGOFunding.json"
