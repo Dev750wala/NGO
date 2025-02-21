@@ -11,10 +11,8 @@ body {
 
 body,html
 {
-    font-family: righteous;
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
 }
 .heading
 {
@@ -22,8 +20,8 @@ body,html
 }
 .mainheader {
     display: flex;
-    justify-content: space-between; /* Align heading and buttons in one row */
-    align-items: center; /* Vertically align elements */
+    justify-content: space-between; 
+    align-items: center; 
     padding: 0 30px;
     background-color: #d84040;
     height: 90px;
@@ -57,7 +55,12 @@ body,html
     font-size: 30px;
     cursor: pointer;
     transition: color 0.3s ease-in-out;
-    background-color: rgb(144, 244, 105);
+    background-color: #D9BE8E;
     border-radius: 13px;
+}
+.buttonwallet:hover
+{
+    background-color: #D9BE8E;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 

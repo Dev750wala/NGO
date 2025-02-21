@@ -1,12 +1,12 @@
 import Header from "../HOMEPAGE/Header";
-import DonorCard from "./DonorCard";
+import ParticipatePage from "./ParticipatePage";
 
 
 const Donor = () => {
     return(
         <div className="Donor"> 
             <Header title="DeBuggers"/>
-            <DonorCard />
+            <ParticipatePage/>
         </div>
     );
 };

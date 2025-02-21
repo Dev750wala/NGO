@@ -7,6 +7,7 @@ import Donor from "./Donor/Donor";
 import Voter from "./Voter/Voter";
 import CreateNgo from "./NGOOWNERPG/CreateNgo";
 import ViewNgo from "./NGOOWNERPG/ViewNgo";
+import Participate from "./Donor/Participate";
 
 const App: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const App: React.FC = () => {
         <Route path="/voter" element={<Voter />} />
         <Route path="/create-ngo" element={<CreateNgo />} />
         <Route path="/view-ngo" element={<ViewNgo />} />
+        <Route path="/participate" element={<Participate/>} />
       </Routes>
     </BrowserRouter>
   );

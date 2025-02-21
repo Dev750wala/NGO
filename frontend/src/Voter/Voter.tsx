@@ -5,6 +5,7 @@ const Voter = () => {
         <div className="voter"> 
             <Header title="DeBuggers"/>
             
+            
         </div>
     );
 };
