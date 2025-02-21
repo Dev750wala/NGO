@@ -1,0 +1,328 @@
+.voter {
+    font-family: "Arial", sans-serif;
+    background-color: #f7f1e3;
+    min-height: 100vh;
+}
+
+.ngo-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 100vw;
+    margin: 10px;
+}
+
+.ngo-card {
+    background: #6fa3ef;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+}
+
+.ngo-card:hover {
+    transform: scale(1.02);
+}
+
+.ngo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.ngo-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ngo-image {
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border-radius: 8px;
+}
+
+h3 {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+p {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+.dropdown-icon {
+    font-size: 1.5em;
+}
+
+.tasks-container {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.task {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #eef6fc;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 0.95em;
+}
+
+.vote-btn {
+    background: #b22222;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.vote-btn:hover {
+    background: #8b0000;
+}
+
+/* Popup Styles */
+.voter-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.voter-popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 800px;
+    height: 500px;
+    max-width: 90%;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    animation: popupFadeIn 0.3s ease-in-out;
+}
+
+/* Popup Close Button */
+.close-icon {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #b22222;
+    transition: 0.3s;
+}
+
+.close-icon:hover {
+    color: #8b0000;
+}
+
+/* Popup Tabs */
+.popup-tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+#buttonshead {
+    background: #6fa3ef;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+#buttonshead :hover {
+    background: #023560;
+}
+
+
+#buttonshead .active {
+    background: #4169e1;
+}
+
+#buttonshead .active.images-tab {
+    background: #2b4faa; 
+}
+
+/* Popup Text */
+.popup-description {
+    font-size: 16px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Donate Button */
+.popup-donate-btn {
+    background: #b22222;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.popup-donate-btn:hover {
+    background: #8b0000;
+}
+
+/* Popup Animation */
+@keyframes popupFadeIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+.popup-actions {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 96%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.approved-btn, .not-approved-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.approved-btn {
+    background: #4CAF50;
+    color: white;
+    margin-right: 10px;
+}
+
+.approved-btn:hover {
+    background: #45a049;
+}
+
+.not-approved-btn {
+    background: #b22222;
+    color: white;
+}
+
+.not-approved-btn:hover {
+    background: #8b0000;
+}
+
+.popup-description-container {
+    max-height: 293px; 
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #ccc; 
+    border-radius: 6px;
+    background: #f9f9f9;
+}/* Popup Image Grid */
+.popup-images-container {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #f9f9f9;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    padding: 10px;
+}
+
+.popup-image {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    object-fit: cover;
+    cursor: pointer; /* Make images clickable */
+    transition: transform 0.2s;
+}
+
+.popup-image:hover {
+    transform: scale(1.05);
+}
+
+/* Zoomed Image Popup */
+.zoomed-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+/* Zoomed Image Popup */
+.zoomed-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9); /* Darker background for better visibility */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.zoomed-popup-content {
+    max-width: 95vw; /* Increase image size */
+    max-height: 95vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.zoomed-image {
+    max-width: 95vw; /* Make the image larger */
+    max-height: 95vh;
+    width: auto;
+    height: auto;
+    border-radius: 10px;
+    object-fit: contain; /* Ensure full visibility */
+    cursor: pointer; /* Allow clicking to close */
+}
