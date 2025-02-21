@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAccount } from "wagmi";
 import "./NgoSignupForm.css";
+import CloudinaryUpload from "../utiles/cloudinary";
 
 const NgoSignupForm: React.FC = () => {
   const { address, isConnected } = useAccount();
@@ -40,6 +41,7 @@ const NgoSignupForm: React.FC = () => {
           onChange={handleChange}
           required
         />
+        <CloudinaryUpload />
         <button type="submit">Sign Up</button>
       </form>
       {isConnected && <p>Connected Wallet: {address}</p>}

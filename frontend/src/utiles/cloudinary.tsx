@@ -26,6 +26,9 @@ const CloudinaryUpload: React.FC = () => {
 
       console.log("Upload Response:", response.data);
       setImageUrl(response.data.secure_url);
+
+      console.log(imageUrl)
+      
     } catch (error) {
       console.error("Error uploading file:", error);
     } finally {
