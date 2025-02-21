@@ -24,3 +24,16 @@ const App: React.FC = () => {
 };
 
 export default App;
+
+// import CloudinaryUpload from "./CloudinaryUpload";
+
+// const App: React.FC = () => {
+//   return (
+//     <div>
+//       <h2>Cloudinary Image Upload</h2>
+//       <CloudinaryUpload />
+//     </div>
+//   );
+// };
+
+// export default App;
