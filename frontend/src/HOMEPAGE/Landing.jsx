@@ -7,6 +7,7 @@ const Landing = () => {
     return(
         <div className="mainmain">
             <Header/>
+            <HomeMiddlePage/>
 
         </div>
     );

@@ -1,4 +1,10 @@
-.middlecontet
+.middlecontent
 {
-    
+    height: 100px;
+    width: 100%;
+    margin: auto;
+    color: aqua;
+    background-color: aqua;
+
+
 }
