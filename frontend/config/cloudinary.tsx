@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const CLOUD_NAME = "duvfnrfeu"; // Replace with your Cloudinary cloud name
+const CLOUD_NAME = "duvfnrfeu"; 
 const UPLOAD_PRESET = "NGO Donating app"; // Replace with your Upload Preset
 
 interface CloudinaryUploadProps {
@@ -9,7 +9,7 @@ interface CloudinaryUploadProps {
   }
 
 const CloudinaryUpload: React.FC<CloudinaryUploadProps> = ({ onUpload }) => {
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  // const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,7 +29,7 @@ const CloudinaryUpload: React.FC<CloudinaryUploadProps> = ({ onUpload }) => {
       );
 
       console.log("Upload Response:", response.data);
-      setImageUrl(response.data.secure_url);
+      // setImageUrl(response.data.secure_url);
       onUpload(response.data.secure_url); 
 
     } catch (error) {
@@ -41,7 +41,7 @@ const CloudinaryUpload: React.FC<CloudinaryUploadProps> = ({ onUpload }) => {
 
   return (
     <div>
-      <input type="file" onSubmit={handleUpload} required/>
+      <input type="file" onChange={handleUpload} required/>
       {loading && <p>Uploading...</p>}
       {/* {imageUrl && <img src={imageUrl} alt="Uploaded" style={{ width: "300px", marginTop: "10px" }} />} */}
     </div>

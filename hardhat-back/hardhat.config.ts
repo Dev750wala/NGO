@@ -12,7 +12,7 @@ import * as dotenv from "dotenv"
 dotenv.config()
 
 
-// const SEPOLIA_RPC_URL = process.env.SEPOLIA_RPC_URL
+const SEPOLIA_RPC_URL = process.env.SEPOLIA_RPC_URL
 
 
 const config: HardhatUserConfig = {
@@ -24,11 +24,11 @@ const config: HardhatUserConfig = {
         hardhat: {
             chainId: 31337,
         },
-        // sepolia: {
-        //     url: SEPOLIA_RPC_URL,
-        //     accounts: [process.env.METAMASK_PRIVATE_KEY],
-        //     chainId: 11155111
-        // },
+        sepolia: {
+            url: SEPOLIA_RPC_URL,
+            accounts: [process.env.METAMASK_PRIVATE_KEY],
+            chainId: 11155111
+        },
         ganache: {
             url: "HTTP://127.0.0.1:7545",
             accounts: [

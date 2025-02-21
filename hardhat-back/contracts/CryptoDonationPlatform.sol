@@ -3,38 +3,38 @@ pragma solidity ^0.8.8;
 
 
 contract NGOFunding {
-    address public owner; // You, the admin, for now
-    uint256 constant VOTING_PERIOD = 7 days; // Voting period
-    uint256 constant REFUND_WINDOW = 90 days; // Refund window
-    uint256 constant VOTER_REWARD_PERCENTAGE = 5; // 5% of funds for voters
-    uint256 constant VOTING_THRESHOLD = 50; // 50% approval threshold
+    address public owner;
+    uint256 constant VOTING_PERIOD = 7 days; 
+    uint256 constant REFUND_WINDOW = 90 days;
+    uint256 constant VOTER_REWARD_PERCENTAGE = 5; 
+    uint256 constant VOTING_THRESHOLD = 50;
 
 
-    // Structs for storing data
     struct NGO {
         string name;
         string description;
         uint256 stakedEth;
-        uint256[] taskIds; // Task history
+        string logo;
+        uint256[] taskIds; 
     }
 
 
     struct Voter {
         uint256 stakedEth;
-        mapping(uint256 => bool) hasVoted; // Tracks votes per task
+        mapping(uint256 => bool) hasVoted;
     }
 
 
     struct Task {
         address ngo;
-        string[] proofLinks; // Cloudinary links
+        string[] proofLinks; // proof links
         string status; // "pending", "approved", "rejected"
         uint256 yesVotes;
         uint256 noVotes;
         uint256 totalFunds;
         uint256 startTime;
-        mapping(address => bool) voters; // Who voted
-        uint256 voterCount; // Total voters for reward splitting
+        mapping(address => bool) voters; 
+        uint256 voterCount; 
     }
 
 
@@ -45,7 +45,6 @@ contract NGOFunding {
     }
 
 
-    // Mappings and counters
     mapping(address => NGO) public ngos;  //NGO wallet Address -> NGO
     mapping(address => Voter) public voters; //Voter wallet Address-> Voter
     mapping(uint256 => Task) public tasks; //Task_id -> Task
@@ -74,29 +73,27 @@ contract NGOFunding {
         _;
     }
 
-
-    // 1. NGO Registration
-    function registerNGO(string memory _name, string memory _description) external payable {
-        require(msg.value > 0, "Must stake ETH"); //minimum stack amount validation
-        require(ngos[msg.sender].stakedEth == 0, "NGO already registered");  // IF stacked etr is 0 then not registered
+    function registerNGO(string memory _name, string memory _description, string memory _logo) external payable {
+        require(msg.value > 0, "Must stake ETH");
+        require(ngos[msg.sender].stakedEth == 0, "NGO already registered");
 
 
         ngos[msg.sender] = NGO({
             name: _name,
             description: _description,
             stakedEth: msg.value,
-            taskIds: new uint256[](0)
+            taskIds: new uint256[](0),
+            logo : _logo
         });
 
 
-        ngoList.push(msg.sender); // added to all NGO
+        ngoList.push(msg.sender);
 
 
         emit NGORegistered(msg.sender, _name);
     }
 
 
-    // 2. Voter Registration
     function registerVoter() external payable {
         require(msg.value > 0, "Must stake ETH"); //minimum stack eth validation
         require(voters[msg.sender].stakedEth == 0, "Already a voter"); //If stacked etr is 0 then not voter
@@ -107,12 +104,11 @@ contract NGOFunding {
     }
 
 
-    // 3. Task Creation
     function createTask(string[] memory _proofLinks) external {
         require(ngos[msg.sender].stakedEth > 0, "NGO not registered"); //NGO must be registered
 
 
-        taskCounter++; //increment TaskNo
+        taskCounter++;
         Task storage newTask = tasks[taskCounter];
         newTask.ngo = msg.sender;
         newTask.proofLinks = _proofLinks;
@@ -124,8 +120,6 @@ contract NGOFunding {
         emit TaskCreated(taskCounter, msg.sender);
     }
 
-
-    // 4. Donation
     function donate(uint256 _taskId) external payable {
         require(tasks[_taskId].ngo != address(0), "Task does not exist"); //task validation
         require(msg.value > 0, "Must donate ETH");  //must to donate etr
@@ -143,8 +137,6 @@ contract NGOFunding {
         emit Donated(_taskId, msg.sender, msg.value, taskDonations[_taskId].length - 1);
     }
 
-
-    // 5. Voting
     function vote(uint256 _taskId, bool _approve) external {
         require(voters[msg.sender].stakedEth > 0, "Not a voter"); //must be voter
         require(tasks[_taskId].ngo != address(0), "Task does not exist"); //task musut be exsist
@@ -168,16 +160,12 @@ contract NGOFunding {
         emit Voted(_taskId, msg.sender, _approve);
     }
 
-
-    // 6 & 7. Resolve Task (Voters rewarded regardless of outcome)
     function resolveTask(uint256 _taskId) external {
         Task storage task = tasks[_taskId];
         require(task.ngo != address(0), "Task does not exist");
         require(keccak256(bytes(task.status)) == keccak256(bytes("pending")), "Task already resolved");
         require(block.timestamp > task.startTime + VOTING_PERIOD, "Voting period not ended");
 
-
-        // Calculate voter reward pool first (always reserved)
         uint256 voterRewardPool = task.voterCount > 0 ? (task.totalFunds * VOTER_REWARD_PERCENTAGE) / 100 : 0;
         uint256 remainingFunds = task.totalFunds - voterRewardPool;
 
@@ -208,7 +196,6 @@ contract NGOFunding {
     }
 
 
-    // 8. Voter Withdrawal
     function withdrawVoterStake() external {
         require(voters[msg.sender].stakedEth > 0, "Not a voter");
 
@@ -224,7 +211,6 @@ contract NGOFunding {
         require(ngos[msg.sender].stakedEth > 0, "Not an NGO or already withdrawn");
 
 
-        // Check for pending tasks
         NGO storage ngo = ngos[msg.sender];
         for (uint256 i = 0; i < ngo.taskIds.length; i++) {
             Task storage task = tasks[ngo.taskIds[i]];
@@ -244,8 +230,6 @@ contract NGOFunding {
         emit NGOStakeWithdrawn(msg.sender, amount);
     }
 
-
-    // Helper: Claim voter rewards (Available even if rejected)
     function claimVoterReward(uint256 _taskId) external {
         require(tasks[_taskId].voters[msg.sender], "Did not vote on task");
         require(keccak256(bytes(tasks[_taskId].status)) != keccak256(bytes("pending")), "Task still pending");
@@ -375,4 +359,8 @@ contract NGOFunding {
         }
         return pendingTasks;
     }
+   
 }
+
+
+

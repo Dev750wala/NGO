@@ -3,7 +3,7 @@ import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { developmentChains } from "../helper-hardhat.config";
 import { ethers, network } from "hardhat";
 import { NGOFunding } from "../typechain-types/NGOFunding";
-// import { verify } from "../utils/verify"
+import { verify } from "../utils/verify"
 
 
 module.exports = async function (hre: HardhatRuntimeEnvironment) {
@@ -16,7 +16,7 @@ module.exports = async function (hre: HardhatRuntimeEnvironment) {
     let cryptoDonationPlatformAddress: string
     let subscriptionId: bigint | string
 
-    if (developmentChains.includes(network.name)) {
+    // if (developmentChains.includes(network.name)) {
         // const cryptoDonationPlatform = await deployments.get("CryptoDonationPlatform")
         // cryptoDonationPlatformAddress = cryptoDonationPlatform.address
         // console.log("Default mock deployed is at: ", cryptoDonationPlatformAddress);
@@ -61,7 +61,7 @@ module.exports = async function (hre: HardhatRuntimeEnvironment) {
         // fs.writeFileSync(outputPath, JSON.stringify(data, null, 2));
         // console.log("Saved subscriptionId to:", outputPath);
         // ------------------------------
-    }
+    // }
     // else {
     //     vrfCoordinatorAddress = networkConfig[chainId as keyof typeof networkConfig]?._vrfCoordinator as string
     //     subscriptionId = networkConfig[chainId as keyof typeof networkConfig]?.subscriptionId as bigint | string
@@ -94,10 +94,10 @@ module.exports = async function (hre: HardhatRuntimeEnvironment) {
     //     log("Adding consumer to mock...2222222222222");
     // }
 
-    // if(!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
-    //     console.log("Verifying contract on Etherscan...");
-    //     await verify(raffle.address, args)
-    // }
+    if(!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
+        console.log("Verifying contract on Etherscan...");
+        await verify(contract.address, [])
+    }
 
     log("------------------------------------");
 }

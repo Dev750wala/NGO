@@ -139,7 +139,7 @@ export interface NGOFundingInterface extends Interface {
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "registerNGO",
-    values: [string, string]
+    values: [string, string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "registerVoter",
@@ -476,10 +476,11 @@ export interface NGOFunding extends BaseContract {
   ngos: TypedContractMethod<
     [arg0: AddressLike],
     [
-      [string, string, bigint] & {
+      [string, string, bigint, string] & {
         name: string;
         description: string;
         stakedEth: bigint;
+        logo: string;
       }
     ],
     "view"
@@ -488,7 +489,7 @@ export interface NGOFunding extends BaseContract {
   owner: TypedContractMethod<[], [string], "view">;
 
   registerNGO: TypedContractMethod<
-    [_name: string, _description: string],
+    [_name: string, _description: string, _logo: string],
     [void],
     "payable"
   >;
@@ -632,10 +633,11 @@ export interface NGOFunding extends BaseContract {
   ): TypedContractMethod<
     [arg0: AddressLike],
     [
-      [string, string, bigint] & {
+      [string, string, bigint, string] & {
         name: string;
         description: string;
         stakedEth: bigint;
+        logo: string;
       }
     ],
     "view"
@@ -646,7 +648,7 @@ export interface NGOFunding extends BaseContract {
   getFunction(
     nameOrSignature: "registerNGO"
   ): TypedContractMethod<
-    [_name: string, _description: string],
+    [_name: string, _description: string, _logo: string],
     [void],
     "payable"
   >;
