@@ -1,13 +1,14 @@
 import React from "react";
 import Header from "./header";
 import HomeMiddlePage from "./HomeMiddlePage";
-
+import Donorlanding from "./Ngo";
 
 const Landing = () => {
     return(
         <div className="mainmain">
-            <Header/>
-        
+            {/* <Header/> */}
+            <Donorlanding/>
+
         </div>
     );
 };

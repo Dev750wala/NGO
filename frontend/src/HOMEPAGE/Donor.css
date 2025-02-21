@@ -1,0 +1,59 @@
+/* Full Page Styling */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+  }
+  
+  /* Header Bar */
+  .header {
+    width: 100%;
+    height: 60px;
+    background-color: #ff9999;
+  }
+  
+  /* Container for NGO list */
+  .container {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+  }
+  
+  /* NGO Cards */
+  .ngo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .ngo-card {
+    display: flex;
+    align-items: center;
+    background-color: #e0e0e0;
+    padding: 15px;
+    border-radius: 5px;
+  }
+  
+  .ngo-image {
+    width: 80px;
+    height: 80px;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-right: 15px;
+  }
+  
+  .ngo-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .ngo-name {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .ngo-description {
+    font-size: 14px;
+    color: #333;
+  }
+  
