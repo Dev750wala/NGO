@@ -3,10 +3,11 @@
     justify-content: space-between;
     align-items: center;
     height: 100vh;
-    width: 100%;
+    width: 100vw;
     background-color: #f8f2de;
     padding: 0 5%;
 }
+
 
 
 .middlecontent {

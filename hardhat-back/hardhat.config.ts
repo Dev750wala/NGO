@@ -30,7 +30,7 @@ const config: HardhatUserConfig = {
         //     chainId: 11155111
         // },
         ganache: {
-            url: "http://0.0.0.0:7545",
+            url: "HTTP://127.0.0.1:7545",
             accounts: [
                 "0x9484b1bbb1d17677beb699e94ec12dd946208dc01437ce064b80933f054580f0",
                 "0x484da611c99535d6f944408e2ef3be2cc3c5bb222c1e056691f9cb93a9f754e1"
