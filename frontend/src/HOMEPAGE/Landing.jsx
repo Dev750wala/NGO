@@ -7,7 +7,7 @@ const Landing = () => {
     return(
         <div className="mainmain">
             <Header/>
-
+        
         </div>
     );
 };
