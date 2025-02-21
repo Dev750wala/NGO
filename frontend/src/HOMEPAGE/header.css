@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+body {
+  font-family: righteous
+}
+.middleptext
+{
+    font-size: 20px;
+    text-decoration: none;
+}
+
+body,html
+{
+    font-family: righteous;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+.heading
+{
+    margin-bottom: 20px;
+}
+.mainheader {
+    display: flex;
+    justify-content: space-between; /* Align heading and buttons in one row */
+    align-items: center; /* Vertically align elements */
+    padding: 0 30px;
+    background-color: #d84040;
+    height: 90px;
+}
+
+.heading1 {
+    font-size: 32px;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.buttonsheader {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.headerbutton
+{
+    background: none;  
+    border: none;  
+    color: #333; 
+    font-size: 30px;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+}
+.buttonwallet
+{
+   
+    color: #333; 
+    font-size: 30px;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+    background-color: rgb(144, 244, 105);
+    border-radius: 13px;
+}
+

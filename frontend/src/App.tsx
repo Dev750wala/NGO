@@ -1,46 +1,26 @@
-import { useAccount, useConnect, useDisconnect } from 'wagmi'
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-function App() {
-  const account = useAccount()
-  const { connectors, connect, status, error } = useConnect()
-  const { disconnect } = useDisconnect()
+import Landing from "./HOMEPAGE/Landing";
+import NgoOwner from "./NGOOWNERPG/NgoOwner";
+import Donor from "./Donor/Donor";
+import Voter from "./Voter/Voter";
+import CreateNgo from "./NGOOWNERPG/CreateNgo";
+import ViewNgo from "./NGOOWNERPG/ViewNgo";
 
+const App: React.FC = () => {
   return (
-    <>
-      <div>
-        <h2>Account</h2>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/ngoowner" element={<NgoOwner />} />
+        <Route path="/donor" element={<Donor />} />
+        <Route path="/voter" element={<Voter />} />
+        <Route path="/create-ngo" element={<CreateNgo />} />
+        <Route path="/view-ngo" element={<ViewNgo />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
-        <div>
-          status: {account.status}
-          <br />
-          addresses: {JSON.stringify(account.addresses)}
-          <br />
-          chainId: {account.chainId}
-        </div>
-
-        {account.status === 'connected' && (
-          <button type="button" onClick={() => disconnect()}>
-            Disconnect
-          </button>
-        )}
-      </div>
-
-      <div>
-        <h2>Connect</h2>
-        {connectors.map((connector) => (
-          <button
-            key={connector.uid}
-            onClick={() => connect({ connector })}
-            type="button"
-          >
-            {connector.name}
-          </button>
-        ))}
-        <div>{status}</div>
-        <div>{error?.message}</div>
-      </div>
-    </>
-  )
-}
-
-export default App
+export default App;
