@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAccount } from "wagmi";
 import "./NgoSignupForm.css";
+import CloudinaryUpload from "../../config/cloudinary";
 import { address as contractAddress, abi as contractAbi} from "../../../hardhat-back/deployments/ganache/NGOFunding.json";
 import { useWriteContract } from "wagmi";
 
@@ -8,6 +9,8 @@ const NgoSignupForm: React.FC = () => {
   const { data: hash, isPending, writeContract } = useWriteContract()
   const { address, isConnected } = useAccount();
   const [formData, setFormData] = useState({ ngoName: "", description: "" });
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,6 +22,8 @@ const NgoSignupForm: React.FC = () => {
       alert("Please connect your wallet to sign up");
       return;
     }
+
+
     console.log("NGO Details:", { ...formData, walletAddress: address });
     
     writeContract({
@@ -27,7 +32,15 @@ const NgoSignupForm: React.FC = () => {
       functionName: 'registerNGO',
       args: [formData.ngoName as string, formData.description as string],
     })
+
   };
+
+  const handleImageUpload = (url: string) => {
+    setImageUrl(url);
+    setFormData((prevData) => ({ ...prevData, imageUrl: url }));
+  };
+
+  
 
   return (
     <div className="form-container">
@@ -50,6 +63,7 @@ const NgoSignupForm: React.FC = () => {
           onChange={handleChange}
           required
         />
+        {<CloudinaryUpload onUpload={handleImageUpload} />}
         <button type="submit">{isPending ? 'Confirming...' : 'Sign Up'}</button>
       </form>
       {isConnected && <p>Connected Wallet: {address}</p>}
