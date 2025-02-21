@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract CryptoDonationPlatform is Ownable, ReentrancyGuard {
@@ -34,9 +34,9 @@ contract CryptoDonationPlatform is Ownable, ReentrancyGuard {
     }
 
     // Mappings
-    mapping(uint256 => NGO) public ngos;
-    mapping(uint256 => Donation) public donations;
-    mapping(address => uint256[]) public donorDonations;
+    mapping(uint256 => NGO) public ngos;  // ngoId -> ngo(details)
+    mapping(uint256 => Donation) public donations; //donationId -> Donation(details)
+    mapping(address => uint256[]) public donorDonations; //
     mapping(uint256 => mapping(address => bool)) public hasVoted;
     mapping(uint256 => uint256) public voteCount;
     mapping(address => Voter) public voters; // Voter address -> Voter details
@@ -213,7 +213,7 @@ contract CryptoDonationPlatform is Ownable, ReentrancyGuard {
         emit FundsRefunded(_donationId, msg.sender, amount);
     }
 
-    // Slash voter for miscellaneous activity (admin only for now)
+    // Slash voter for miscellaneous activity (admin  only for now)
     function slashVoter(address _voter) external onlyOwner {
         Voter storage voter = voters[_voter];
         require(voter.isActive, "Not an active voter");
