@@ -34,9 +34,9 @@ contract CryptoDonationPlatform is Ownable, ReentrancyGuard {
     }
 
     // Mappings
-    mapping(uint256 => NGO) public ngos;
-    mapping(uint256 => Donation) public donations;
-    mapping(address => uint256[]) public donorDonations;
+    mapping(uint256 => NGO) public ngos;  // ngoId -> ngo(details)
+    mapping(uint256 => Donation) public donations; //donationId -> Donation(details)
+    mapping(address => uint256[]) public donorDonations; //
     mapping(uint256 => mapping(address => bool)) public hasVoted;
     mapping(uint256 => uint256) public voteCount;
     mapping(address => Voter) public voters; // Voter address -> Voter details

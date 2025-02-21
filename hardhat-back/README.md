@@ -11,3 +11,18 @@ REPORT_GAS=true npx hardhat test
 npx hardhat node
 npx hardhat ignition deploy ./ignition/modules/Lock.ts
 ```
+
+To Do :
+
+cryptoDonationPlateform.sol
+```
+slashVoter
+fundRewardPool
+
+NGO listing -> all NgO fetch
+
+```
+
+DonationDovernanceToken.sol
+```
+```
