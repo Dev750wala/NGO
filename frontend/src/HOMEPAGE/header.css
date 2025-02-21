@@ -1,23 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
 
 body {
-  font-family: righteous
+  font-family: 'Righteous', cursive;
 }
-.middleptext
-{
+
+.middleptext {
     font-size: 20px;
     text-decoration: none;
 }
 
-body,html
-{
+body, html {
     margin: 0;
     padding: 0;
 }
-.heading
-{
+
+.heading {
     margin-bottom: 20px;
 }
+
 .mainheader {
     display: flex;
     justify-content: space-between; 
@@ -39,28 +39,65 @@ body,html
     align-items: center;
     gap: 20px;
 }
-.headerbutton
-{
+
+.headerbutton {
     background: none;  
     border: none;  
-    color: #333; 
-    font-size: 30px;
+    color: #fff; 
+    font-size: 20px;
     cursor: pointer;
     transition: color 0.3s ease-in-out;
 }
-.buttonwallet
-{
-   
+
+.buttonwallet {
     color: #333; 
-    font-size: 30px;
+    font-size: 20px;
     cursor: pointer;
     transition: color 0.3s ease-in-out;
     background-color: #D9BE8E;
     border-radius: 13px;
-}
-.buttonwallet:hover
-{
-    background-color: #D9BE8E;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 10px 15px;
+    border: none;
 }
 
+.buttonwallet:hover {
+    background-color: #C9AE7E;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Wallet Container for Dropdown */
+.wallet-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    min-width: 150px;
+    padding: 5px;
+    z-index: 10;
+}
+
+.dropdown-item {
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.dropdown-item:hover {
+    background: #f0f0f0;
+}
+
+.dropdown-item{
+    color: #0c0c0c;
+}
