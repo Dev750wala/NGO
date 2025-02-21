@@ -1,0 +1,62 @@
+
+.cardcontainer {
+    padding: 10px;
+    width: 100%;
+    padding: 10px;
+}
+
+
+.DonorCard {
+    display: flex;
+    align-items: flex-start;
+    position: relative; 
+    width: 96%;
+    background-color: #6da9d2;
+    border-radius: 10px;
+    padding: 20px;
+    height: auto; 
+}
+
+
+.photodonorcard {
+    height: 120px;
+    width: 120px;
+    background-color: white;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.donor-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.donor-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.donor-desc {
+    font-size: 14px;
+}
+
+.btn-container {
+    position: absolute;
+    bottom: 30px;
+    right: 10px;
+}
+
+
+.participate-btn {
+    background-color: #a4161a;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.participate-btn:hover {
+    background-color: #7f1012;
+}

@@ -1,0 +1,111 @@
+.participatemaincontainer {
+    display: flex;
+    justify-content: center;
+
+    height: 100vh;
+    background-color: #fdf5dc; 
+}
+
+.participatecontainer {
+    display: flex;
+    width: 80%;
+    background-color: #fdf5dc;
+    padding: 20px;
+}
+
+.participateimage {
+    width: 200px;
+    height: 200px;
+    background-color: white;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+
+.participatedetails {
+    flex: 1;
+}
+
+.ngoname {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.ngodescription {
+    font-size: 14px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+
+.projecttitle {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.projectlist {
+    list-style: none;
+    padding: 0;
+}
+
+.projectlist li {
+    font-size: 16px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, height 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.projectlist li:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.projectdesc {
+    font-size: 14px;
+    color: #444;
+    margin-top: 5px;
+    display: none;
+}
+
+.projectlist li:hover .projectdesc {
+    display: block;
+}
+
+.progressbar {
+    width: 80%;
+    height: 8px;
+    background-color: lightgray;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.progress {
+    height: 100%;
+    background-color: #6495ed;
+}
+
+
+.donate-btn {
+    background-color: #a4161a;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+}
+
+.donate-btn:hover {
+    background-color: #7f1012;
+}

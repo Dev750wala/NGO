@@ -1,0 +1,174 @@
+/* Main Container */
+.ViewNgo {
+    background-color: #fdf6e3; 
+}
+
+/* NGO Details Card */
+.veiw1card {
+    width: 100%;
+    height: 160px;
+    background-color: #faf3d4; 
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.photoview {
+    height: 160px;
+    width: 160px;
+    background-color: #d3d3d3;
+    border-radius: 10px;
+}
+
+.viewfont {
+    margin-left: 20px;
+}
+
+.ngoname {
+    font-size: 24px;
+    font-weight: bold;
+    color: #222;
+    text-align: left;
+}
+
+.ngodesc {
+    font-size: 16px;
+    color: #444;
+    max-width: 600px;
+    line-height: 1.5;
+    text-align: left;
+}
+
+/* Summary Cards */
+.viewcard2 {
+    width: 100%;
+    height: 120px;
+    background-color: #faf3d4; 
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.subcard1, .subcard2, .subcard3, .subcard4 {
+    width: 22%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #63c5eb;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out, background-color 0.3s;
+    cursor: pointer;
+}
+
+.subcard1:hover, .subcard2:hover, .subcard3:hover, .subcard4:hover {
+    transform: scale(1.05);
+    background-color: #4cafd7; 
+}
+
+
+.projects-container {
+    width: 90%;
+    background-color: #d9d8fc;  
+    padding: 35px;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    margin-left: 30px;
+}
+
+.projects-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #222;
+    padding-left: 10px;
+}
+
+.add-btn {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    background-color: #45ff45;
+    color: black;
+    border: none;
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.add-btn:hover {
+    background-color: #2dd62d;
+}
+
+
+.project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+
+}
+
+.project-card {
+    width: 100%;
+    background-color: #b0c4de; 
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    justify-content: space-between;
+}
+
+
+.project-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #222;
+    margin-left: 10px;
+}
+
+
+.progress-bar {
+    width: 50%;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background-color: blue;
+    transition: width 0.5s ease-in-out;
+}
+
+
+.unlock-btn {
+    background-color: #45ff45;
+    color: black;
+    border: none;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.unlock-btn:hover {
+    background-color: #2dd62d;
+}

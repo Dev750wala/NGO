@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+body {
+  font-family: righteous
+}
+.middleptext
+{
+    font-size: 20px;
+    text-decoration: none;
+}
+
+body,html
+{
+    margin: 0;
+    padding: 0;
+}
+.heading
+{
+    margin-bottom: 20px;
+}
+.mainheader {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 0 30px;
+    background-color: #d84040;
+    height: 90px;
+}
+
+.heading1 {
+    font-size: 32px;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.buttonsheader {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.headerbutton
+{
+    background: none;  
+    border: none;  
+    color: #333; 
+    font-size: 30px;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+}
+.buttonwallet
+{
+   
+    color: #333; 
+    font-size: 30px;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+    background-color: #D9BE8E;
+    border-radius: 13px;
+}
+.buttonwallet:hover
+{
+    background-color: #D9BE8E;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
