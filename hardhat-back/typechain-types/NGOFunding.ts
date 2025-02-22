@@ -24,6 +24,37 @@ import type {
 } from "./common";
 
 export declare namespace NGOFunding {
+  export type TaskDetailsStruct = {
+    taskId: BigNumberish;
+    description: string;
+    proofLinks: string[];
+  };
+
+  export type TaskDetailsStructOutput = [
+    taskId: bigint,
+    description: string,
+    proofLinks: string[]
+  ] & { taskId: bigint; description: string; proofLinks: string[] };
+
+  export type NGOWithTasksStruct = {
+    id: BigNumberish;
+    name: string;
+    description: string;
+    tasks: NGOFunding.TaskDetailsStruct[];
+  };
+
+  export type NGOWithTasksStructOutput = [
+    id: bigint,
+    name: string,
+    description: string,
+    tasks: NGOFunding.TaskDetailsStructOutput[]
+  ] & {
+    id: bigint;
+    name: string;
+    description: string;
+    tasks: NGOFunding.TaskDetailsStructOutput[];
+  };
+
   export type DonationStruct = {
     donor: AddressLike;
     amount: BigNumberish;
@@ -44,6 +75,7 @@ export interface NGOFundingInterface extends Interface {
       | "createTask"
       | "donate"
       | "getAllNGOs"
+      | "getAllNGOsWithTasks"
       | "getAllTasks"
       | "getDonations"
       | "getNGODetails"
@@ -93,6 +125,10 @@ export interface NGOFundingInterface extends Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "getAllNGOs",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getAllNGOsWithTasks",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -179,6 +215,10 @@ export interface NGOFundingInterface extends Interface {
   decodeFunctionResult(functionFragment: "createTask", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "donate", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getAllNGOs", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getAllNGOsWithTasks",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "getAllTasks",
     data: BytesLike
@@ -415,6 +455,12 @@ export interface NGOFunding extends BaseContract {
 
   getAllNGOs: TypedContractMethod<[], [string[]], "view">;
 
+  getAllNGOsWithTasks: TypedContractMethod<
+    [],
+    [NGOFunding.NGOWithTasksStructOutput[]],
+    "view"
+  >;
+
   getAllTasks: TypedContractMethod<[], [bigint[]], "view">;
 
   getDonations: TypedContractMethod<
@@ -560,6 +606,9 @@ export interface NGOFunding extends BaseContract {
   getFunction(
     nameOrSignature: "getAllNGOs"
   ): TypedContractMethod<[], [string[]], "view">;
+  getFunction(
+    nameOrSignature: "getAllNGOsWithTasks"
+  ): TypedContractMethod<[], [NGOFunding.NGOWithTasksStructOutput[]], "view">;
   getFunction(
     nameOrSignature: "getAllTasks"
   ): TypedContractMethod<[], [bigint[]], "view">;

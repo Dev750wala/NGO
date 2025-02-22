@@ -45,6 +45,22 @@ contract NGOFunding {
     }
 
 
+    // TEMP TEMP 
+    struct TaskDetails {
+        uint256 taskId; // Task ID to use as a placeholder for title
+        string description; // Derived placeholder description
+        string[] proofLinks; // Images
+    }
+
+    // Define a struct to return NGO details with tasks
+    struct NGOWithTasks {
+        uint256 id; // Incremental ID
+        string name;
+        string description;
+        TaskDetails[] tasks;
+    }
+
+
     mapping(address => NGO) public ngos;  //NGO wallet Address -> NGO
     mapping(address => Voter) public voters; //Voter wallet Address-> Voter
     mapping(uint256 => Task) public tasks; //Task_id -> Task
@@ -359,7 +375,42 @@ contract NGOFunding {
         }
         return pendingTasks;
     }
-   
+
+    function getAllNGOsWithTasks() external view returns (NGOWithTasks[] memory) {
+        NGOWithTasks[] memory result = new NGOWithTasks[](ngoList.length);
+
+        for (uint256 i = 0; i < ngoList.length; i++) {
+            address ngoAddress = ngoList[i];
+            NGO storage ngo = ngos[ngoAddress];
+
+            // Fetch task details for this NGO
+            TaskDetails[] memory taskDetails = new TaskDetails[](ngo.taskIds.length);
+            for (uint256 j = 0; j < ngo.taskIds.length; j++) {
+                uint256 taskId = ngo.taskIds[j];
+                Task storage task = tasks[taskId];
+                
+                // Placeholder description based on status
+                string memory taskDescription = string(
+                    abi.encodePacked("Task for ", ngo.name, " (Status: ", task.status, ")")
+                );
+
+                taskDetails[j] = TaskDetails({
+                    taskId: taskId, // Used as a placeholder for title (e.g., "Task #1")
+                    description: taskDescription,
+                    proofLinks: task.proofLinks
+                });
+            }
+
+            result[i] = NGOWithTasks({
+                id: i + 1,
+                name: ngo.name,
+                description: ngo.description,
+                tasks: taskDetails
+            });
+        }
+
+        return result;
+    }
 }
 
 
