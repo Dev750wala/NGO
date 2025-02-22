@@ -71,6 +71,7 @@ export declare namespace NGOFunding {
 export interface NGOFundingInterface extends Interface {
   getFunction(
     nameOrSignature:
+      | "adminWithdraw"
       | "claimVoterReward"
       | "createTask"
       | "donate"
@@ -103,21 +104,23 @@ export interface NGOFundingInterface extends Interface {
   getEvent(
     nameOrSignatureOrTopic:
       | "Donated"
-      | "NGORegistered"
       | "NGOStakeWithdrawn"
       | "TaskCreated"
       | "TaskResolved"
       | "Voted"
-      | "VoterRegistered"
   ): EventFragment;
 
+  encodeFunctionData(
+    functionFragment: "adminWithdraw",
+    values: [AddressLike]
+  ): string;
   encodeFunctionData(
     functionFragment: "claimVoterReward",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "createTask",
-    values: [string[]]
+    values: [string[], string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "donate",
@@ -208,6 +211,10 @@ export interface NGOFundingInterface extends Interface {
     values?: undefined
   ): string;
 
+  decodeFunctionResult(
+    functionFragment: "adminWithdraw",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "claimVoterReward",
     data: BytesLike
@@ -313,19 +320,6 @@ export namespace DonatedEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export namespace NGORegisteredEvent {
-  export type InputTuple = [ngo: AddressLike, name: string];
-  export type OutputTuple = [ngo: string, name: string];
-  export interface OutputObject {
-    ngo: string;
-    name: string;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
 export namespace NGOStakeWithdrawnEvent {
   export type InputTuple = [ngo: AddressLike, amount: BigNumberish];
   export type OutputTuple = [ngo: string, amount: bigint];
@@ -383,19 +377,6 @@ export namespace VotedEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export namespace VoterRegisteredEvent {
-  export type InputTuple = [voter: AddressLike, stakedEth: BigNumberish];
-  export type OutputTuple = [voter: string, stakedEth: bigint];
-  export interface OutputObject {
-    voter: string;
-    stakedEth: bigint;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
 export interface NGOFunding extends BaseContract {
   connect(runner?: ContractRunner | null): NGOFunding;
   waitForDeployment(): Promise<this>;
@@ -439,6 +420,12 @@ export interface NGOFunding extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
+  adminWithdraw: TypedContractMethod<
+    [ngoAdd: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+
   claimVoterReward: TypedContractMethod<
     [_taskId: BigNumberish],
     [void],
@@ -446,7 +433,7 @@ export interface NGOFunding extends BaseContract {
   >;
 
   createTask: TypedContractMethod<
-    [_proofLinks: string[]],
+    [_proofLinks: string[], _name: string, _description: string],
     [void],
     "nonpayable"
   >;
@@ -472,11 +459,12 @@ export interface NGOFunding extends BaseContract {
   getNGODetails: TypedContractMethod<
     [_ngo: AddressLike],
     [
-      [string, string, bigint, bigint[]] & {
+      [string, string, bigint, bigint[], string] & {
         name: string;
         description: string;
         stakedEth: bigint;
         taskIds: bigint[];
+        logo: string;
       }
     ],
     "view"
@@ -495,7 +483,18 @@ export interface NGOFunding extends BaseContract {
   getTaskDetails: TypedContractMethod<
     [_taskId: BigNumberish],
     [
-      [string, string[], string, bigint, bigint, bigint, bigint, bigint] & {
+      [
+        string,
+        string[],
+        string,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        string,
+        string
+      ] & {
         ngo: string;
         proofLinks: string[];
         status: string;
@@ -504,6 +503,8 @@ export interface NGOFunding extends BaseContract {
         totalFunds: bigint;
         startTime: bigint;
         voterCount: bigint;
+        name: string;
+        taskDescription: string;
       }
     ],
     "view"
@@ -565,7 +566,19 @@ export interface NGOFunding extends BaseContract {
   tasks: TypedContractMethod<
     [arg0: BigNumberish],
     [
-      [string, string, bigint, bigint, bigint, bigint, bigint] & {
+      [
+        string,
+        string,
+        string,
+        string,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint
+      ] & {
+        name: string;
+        description: string;
         ngo: string;
         status: string;
         yesVotes: bigint;
@@ -586,20 +599,27 @@ export interface NGOFunding extends BaseContract {
 
   voters: TypedContractMethod<[arg0: AddressLike], [bigint], "view">;
 
-  withdrawNgoStake: TypedContractMethod<[], [void], "nonpayable">;
+  withdrawNgoStake: TypedContractMethod<[], [void], "payable">;
 
-  withdrawVoterStake: TypedContractMethod<[], [void], "nonpayable">;
+  withdrawVoterStake: TypedContractMethod<[], [void], "payable">;
 
   getFunction<T extends ContractMethod = ContractMethod>(
     key: string | FunctionFragment
   ): T;
 
   getFunction(
+    nameOrSignature: "adminWithdraw"
+  ): TypedContractMethod<[ngoAdd: AddressLike], [void], "nonpayable">;
+  getFunction(
     nameOrSignature: "claimVoterReward"
   ): TypedContractMethod<[_taskId: BigNumberish], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "createTask"
-  ): TypedContractMethod<[_proofLinks: string[]], [void], "nonpayable">;
+  ): TypedContractMethod<
+    [_proofLinks: string[], _name: string, _description: string],
+    [void],
+    "nonpayable"
+  >;
   getFunction(
     nameOrSignature: "donate"
   ): TypedContractMethod<[_taskId: BigNumberish], [void], "payable">;
@@ -624,11 +644,12 @@ export interface NGOFunding extends BaseContract {
   ): TypedContractMethod<
     [_ngo: AddressLike],
     [
-      [string, string, bigint, bigint[]] & {
+      [string, string, bigint, bigint[], string] & {
         name: string;
         description: string;
         stakedEth: bigint;
         taskIds: bigint[];
+        logo: string;
       }
     ],
     "view"
@@ -651,7 +672,18 @@ export interface NGOFunding extends BaseContract {
   ): TypedContractMethod<
     [_taskId: BigNumberish],
     [
-      [string, string[], string, bigint, bigint, bigint, bigint, bigint] & {
+      [
+        string,
+        string[],
+        string,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        string,
+        string
+      ] & {
         ngo: string;
         proofLinks: string[];
         status: string;
@@ -660,6 +692,8 @@ export interface NGOFunding extends BaseContract {
         totalFunds: bigint;
         startTime: bigint;
         voterCount: bigint;
+        name: string;
+        taskDescription: string;
       }
     ],
     "view"
@@ -728,7 +762,19 @@ export interface NGOFunding extends BaseContract {
   ): TypedContractMethod<
     [arg0: BigNumberish],
     [
-      [string, string, bigint, bigint, bigint, bigint, bigint] & {
+      [
+        string,
+        string,
+        string,
+        string,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint
+      ] & {
+        name: string;
+        description: string;
         ngo: string;
         status: string;
         yesVotes: bigint;
@@ -752,10 +798,10 @@ export interface NGOFunding extends BaseContract {
   ): TypedContractMethod<[arg0: AddressLike], [bigint], "view">;
   getFunction(
     nameOrSignature: "withdrawNgoStake"
-  ): TypedContractMethod<[], [void], "nonpayable">;
+  ): TypedContractMethod<[], [void], "payable">;
   getFunction(
     nameOrSignature: "withdrawVoterStake"
-  ): TypedContractMethod<[], [void], "nonpayable">;
+  ): TypedContractMethod<[], [void], "payable">;
 
   getEvent(
     key: "Donated"
@@ -763,13 +809,6 @@ export interface NGOFunding extends BaseContract {
     DonatedEvent.InputTuple,
     DonatedEvent.OutputTuple,
     DonatedEvent.OutputObject
-  >;
-  getEvent(
-    key: "NGORegistered"
-  ): TypedContractEvent<
-    NGORegisteredEvent.InputTuple,
-    NGORegisteredEvent.OutputTuple,
-    NGORegisteredEvent.OutputObject
   >;
   getEvent(
     key: "NGOStakeWithdrawn"
@@ -799,13 +838,6 @@ export interface NGOFunding extends BaseContract {
     VotedEvent.OutputTuple,
     VotedEvent.OutputObject
   >;
-  getEvent(
-    key: "VoterRegistered"
-  ): TypedContractEvent<
-    VoterRegisteredEvent.InputTuple,
-    VoterRegisteredEvent.OutputTuple,
-    VoterRegisteredEvent.OutputObject
-  >;
 
   filters: {
     "Donated(uint256,address,uint256,uint256)": TypedContractEvent<
@@ -817,17 +849,6 @@ export interface NGOFunding extends BaseContract {
       DonatedEvent.InputTuple,
       DonatedEvent.OutputTuple,
       DonatedEvent.OutputObject
-    >;
-
-    "NGORegistered(address,string)": TypedContractEvent<
-      NGORegisteredEvent.InputTuple,
-      NGORegisteredEvent.OutputTuple,
-      NGORegisteredEvent.OutputObject
-    >;
-    NGORegistered: TypedContractEvent<
-      NGORegisteredEvent.InputTuple,
-      NGORegisteredEvent.OutputTuple,
-      NGORegisteredEvent.OutputObject
     >;
 
     "NGOStakeWithdrawn(address,uint256)": TypedContractEvent<
@@ -872,17 +893,6 @@ export interface NGOFunding extends BaseContract {
       VotedEvent.InputTuple,
       VotedEvent.OutputTuple,
       VotedEvent.OutputObject
-    >;
-
-    "VoterRegistered(address,uint256)": TypedContractEvent<
-      VoterRegisteredEvent.InputTuple,
-      VoterRegisteredEvent.OutputTuple,
-      VoterRegisteredEvent.OutputObject
-    >;
-    VoterRegistered: TypedContractEvent<
-      VoterRegisteredEvent.InputTuple,
-      VoterRegisteredEvent.OutputTuple,
-      VoterRegisteredEvent.OutputObject
     >;
   };
 }
