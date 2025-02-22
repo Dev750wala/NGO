@@ -1,16 +1,23 @@
+import { useNavigate } from "react-router-dom";
 import Header from "../HOMEPAGE/Header";
-import './viewngo.css';
+import "./viewngo.css";
 
 const ViewNgo = () => {
-    return(
-        <div className="ViewNgo"> 
-            <Header title="DeBuggers"/>
+    const navigate = useNavigate(); 
 
-            <div className="veiw1card">
-                <div className="photoview"></div>
-                <div className="viewfont">
-                    <h2 className="ngoname">NGO Name</h2>
-                    <p className="ngodesc">
+    const handleAddClick = () => {
+        navigate("/form"); 
+    };
+
+    return (
+        <div className="view-ngo-container"> 
+            <Header title="DeBuggers" />
+
+            <div className="view-card">
+                <div className="photo-view"></div>
+                <div className="view-content">
+                    <h2 className="ngo-name">NGO Name</h2>
+                    <p className="ngo-desc">
                         “Save the Future Foundation is dedicated to providing quality education and healthcare 
                         to underprivileged children. Our mission is to empower young minds through scholarships, 
                         mentorship programs, and medical aid. Join us in shaping a better tomorrow!”
@@ -18,17 +25,16 @@ const ViewNgo = () => {
                 </div>
             </div>
 
-            <div className="viewcard2">
-                <div className="subcard1">Fund Raise</div>
-                <div className="subcard2">Ongoing Project</div>
-                <div className="subcard3">Finished Projects</div>
-                <div className="subcard4">Finished Projects</div>
+            <div className="view-card2">
+                <div className="sub-card">Fund Raise</div>
+                <div className="sub-card">Ongoing Project</div>
+                <div className="sub-card">Finished Projects</div>
+                <div className="sub-card">Finished Projects</div>
             </div>
 
-         
             <div className="projects-container">
                 <h3 className="projects-title">On Going Projects</h3>
-                <button className="add-btn">ADD</button>
+                <button className="add-btn" onClick={handleAddClick}>ADD</button> {/* Add click event */}
 
                 <div className="project-list">
                     {[1, 2, 3].map((task, index) => (
@@ -37,7 +43,6 @@ const ViewNgo = () => {
                             <div className="progress-bar">
                                 <div className="progress" style={{ width: `${50 + index * 10}%` }}></div>
                             </div>
-                            <button className="unlock-btn">UNLOCK</button>
                         </div>
                     ))}
                 </div>

@@ -27,7 +27,7 @@
 }
 
 .ngoname {
-    font-size: 24px;
+    font-size: 30px;
     font-weight: bold;
     color: #222;
     text-align: left;
@@ -61,8 +61,8 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #63c5eb;
-    color: white;
+    background-color: #d9bd8ea2;
+    color: rgb(0, 0, 0);
     font-weight: bold;
     text-align: center;
     border-radius: 8px;
@@ -73,13 +73,13 @@
 
 .subcard1:hover, .subcard2:hover, .subcard3:hover, .subcard4:hover {
     transform: scale(1.05);
-    background-color: #4cafd7; 
+    background-color: #d9bd8ea2; 
 }
 
 
 .projects-container {
     width: 90%;
-    background-color: #d9d8fc;  
+    background-color: #dac69f75;;  
     padding: 35px;
     border-radius: 10px;
     margin-top: 20px;
@@ -99,7 +99,7 @@
     position: absolute;
     right: 20px;
     top: 10px;
-    background-color: #45ff45;
+    background-color: #ff93456c;
     color: black;
     border: none;
     padding: 8px 14px;
@@ -111,7 +111,7 @@
 }
 
 .add-btn:hover {
-    background-color: #2dd62d;
+    background-color: #d69e2d9b;
 }
 
 
@@ -125,12 +125,12 @@
 
 .project-card {
     width: 100%;
-    background-color: #b0c4de; 
+    background-color: #ddb76ba2;; 
     display: flex;
     align-items: center;
     padding: 10px;
     border-radius: 8px;
-    justify-content: space-between;
+    gap: 45px;
 }
 
 
@@ -158,7 +158,7 @@
 
 
 .unlock-btn {
-    background-color: #45ff45;
+    background-color: #bbff45a1;
     color: black;
     border: none;
     padding: 6px 12px;

@@ -6,8 +6,8 @@ import { address as contractAddress, abi as contractAbi } from "../../../hardhat
 import { useWriteContract } from "wagmi";
 
 const NgoSignupForm: React.FC = () => {
-  const { data: hash, isPending, writeContract } = useWriteContract();
-  const { address, isConnected } = useAccount();
+  const { isPending, writeContract } = useWriteContract();
+  const { isConnected } = useAccount();
   const [formData, setFormData] = useState({ ngoName: "", description: "", imageUrl: "" });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -20,8 +20,6 @@ const NgoSignupForm: React.FC = () => {
       alert("Please connect your wallet to sign up");
       return;
     }
-
-    console.log("NGO Details:", { ...formData, walletAddress: address });
 
     writeContract({
       address: `0x${contractAddress.split("0x")[1]}`,
@@ -39,39 +37,43 @@ const NgoSignupForm: React.FC = () => {
   };
 
   return (
-    <div className="form-container">
-      <h2>Register Your NGO</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="ngoName">NGO Name</label>
-        <input
-          type="text"
-          id="ngoName"
-          name="ngoName"
-          value={formData.ngoName}
-          onChange={handleChange}
-          required
-        />
-        <label htmlFor="description">Description</label>
-        <textarea
-          id="description"
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-          required
-        />
-        
-        {/* Cloudinary Upload */}
-        <CloudinaryUpload onUpload={handleImageUpload} />
+    <div className="ngo-form-wrapper"> {/* Centering wrapper */}
+      <div className="ngo-form-container">
+        <h2 className="ngo-form-title">Register Your NGO</h2>
+        <form className="ngo-form" onSubmit={handleSubmit}>
+          <label className="ngo-form-label" htmlFor="ngoName">NGO Name</label>
+          <input
+            className="ngo-form-input"
+            type="text"
+            id="ngoName"
+            name="ngoName"
+            value={formData.ngoName}
+            onChange={handleChange}
+            required
+          />
+          <label className="ngo-form-label" htmlFor="description">Description</label>
+          <textarea
+            className="ngo-form-textarea"
+            id="description"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            required
+          /><br/>
+          
+          {/* Cloudinary Upload */}
+          <CloudinaryUpload onUpload={handleImageUpload} />
 
-        {/* Show Image Preview if an image is uploaded */}
-        {formData.imageUrl && (
-          <div className="image-preview">
-            <img src={formData.imageUrl} alt="Uploaded NGO" />
-          </div>
-        )}
+          {/* Show Image Preview if an image is uploaded */}
+          {formData.imageUrl && (
+            <div className="ngo-image-preview">
+              <img src={formData.imageUrl} alt="Uploaded NGO" className="ngo-preview-img"/>
+            </div>
+          )}
 
-        <button type="submit">{isPending ? "Confirming..." : "Sign Up"}</button>
-      </form>
+          <button className="ngo-form-button" type="submit">{isPending ? "Confirming..." : "Sign Up"}</button>
+        </form>
+      </div>
     </div>
   );
 };

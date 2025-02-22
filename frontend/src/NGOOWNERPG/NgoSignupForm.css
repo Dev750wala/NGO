@@ -1,60 +1,119 @@
-.form-container {
-    max-width: 500px;
-    margin: auto;
-    background: #f7f1dc;
+
+.ngo-form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 85vh; 
+  background-color: #f8f2de;
+  padding: 20px;
+}
+
+.ngo-form-container {
+  max-width: 500px;
+  width: 100%;
+  background: #eee3be4d; 
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+
+.ngo-form-container:hover {
+  transform: scale(1.02);
+}
+
+
+.ngo-form-title {
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+
+.ngo-form {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.ngo-form-label {
+  text-align: left;
+  font-weight: 500;
+  margin-top: 12px;
+  color: #555;
+}
+
+
+.ngo-form-input, .ngo-form-textarea {
+  width: 95%;
+  padding: 12px;
+  margin-top: 5px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+  outline: none;
+}
+
+
+.ngo-form-input:focus, .ngo-form-textarea:focus {
+  border-color: #ff6565;
+  box-shadow: 0 0 5px rgba(255, 101, 101, 0.5);
+}
+
+
+.ngo-form-textarea {
+  resize: none;
+  height: 90px;
+}
+
+
+.ngo-image-preview {
+  margin-top: 15px;
+
+}
+
+.ngo-preview-img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.ngo-form-button {
+  width: 100%;
+  margin-top: 18px;
+  padding: 12px;
+  background: linear-gradient(135deg, #ff6565, #ff4747);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 3px 8px rgba(255, 101, 101, 0.4);
+}
+
+
+.ngo-form-button:hover {
+  background: linear-gradient(135deg, #ff4747, #ff6565);
+  box-shadow: 0px 4px 12px rgba(255, 71, 71, 0.5);
+  transform: scale(1.02);
+}
+
+
+@media (max-width: 500px) {
+  .ngo-form-container {
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
+    max-width: 100%;
   }
   
-  h2 {
-    text-align: center;
-    color: #333;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  label {
-    font-weight: bold;
-    margin-top: 10px;
-  }
-  
-  input, textarea {
+  .ngo-form-button {
     padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
   }
-  
-  textarea {
-    resize: none;
-    height: 80px;
-  }
-  
-  button {
-    margin-top: 15px;
-    padding: 10px;
-    background-color: #ff6565;
-    color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  
-  button:hover {
-    background-color: #ff4747;
-  }
-  
-  p {
-    text-align: center;
-    font-size: 14px;
-    color: #555;
-  }
-  
+}
