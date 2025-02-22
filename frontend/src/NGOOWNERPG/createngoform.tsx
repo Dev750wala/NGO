@@ -31,8 +31,8 @@ const NgoSignupForm: React.FC = () => {
       address: `0x${contractAddress.split("0x")[1]}`,
       abi: contractAbi,
       functionName: "registerNGO",
-      args: [formData.ngoName, formData.description],
-      value: 10000000000000000n
+      args: [formData.ngoName, formData.description, formData.imageUrl],
+      value: 11000000000000000n
     });
     console.log("handle submit 4");
     
@@ -41,8 +41,10 @@ const NgoSignupForm: React.FC = () => {
     console.log("handle submit 5");
   };
   
-  const handleImageUpload = (url: string) => {
-    setFormData((prevData) => ({ ...prevData, imageUrl: url }));
+  const handleImageUpload = (imageUrls: string[]) => {
+    if (imageUrls.length > 0) {
+      setFormData((prevData) => ({ ...prevData, imageUrl: imageUrls[0] }));
+    }
   };
   
   return (
