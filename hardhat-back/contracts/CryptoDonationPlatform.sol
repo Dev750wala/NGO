@@ -81,7 +81,7 @@ contract NGOFunding {
     }
 
     function registerNGO(string memory _name, string memory _description, string memory _logo) external payable {
-        require(msg.value > 1000000000000000000, "Must stake ETH");
+        require(msg.value > 10000000000000000, "Must stake ETH");
         require(ngos[msg.sender].stakedEth == 0, "NGO already registered");
         ngos[msg.sender] = NGO({
             name: _name,

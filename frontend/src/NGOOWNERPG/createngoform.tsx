@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useAccount } from "wagmi";
 import "./NgoSignupForm.css";
 import CloudinaryUpload from "../../config/cloudinary";
-import { address as contractAddress, abi as contractAbi } from "../../../hardhat-back/deployments/ganache/NGOFunding.json";
+import { address as contractAddress, abi as contractAbi } from "../../../hardhat-back/deployments/sepolia/NGOFunding.json";
 import { useWriteContract } from "wagmi";
 
 const NgoSignupForm: React.FC = () => {
@@ -10,32 +10,41 @@ const NgoSignupForm: React.FC = () => {
   const { isConnected } = useAccount();
   const [formData, setFormData] = useState({ ngoName: "", description: "", imageUrl: "" });
 
+  console.log("contractAddress", contractAddress);
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
+    console.log("handle submit 1");
+    
     e.preventDefault();
     if (!isConnected) {
       alert("Please connect your wallet to sign up");
       return;
     }
-
+    console.log("handle submit 2");
+    console.log("handle submit 3");
+    
     writeContract({
       address: `0x${contractAddress.split("0x")[1]}`,
       abi: contractAbi,
       functionName: "registerNGO",
       args: [formData.ngoName, formData.description],
+      value: 10000000000000000n
     });
-
+    console.log("handle submit 4");
+    
     // Clear input fields and remove uploaded image
     setFormData({ ngoName: "", description: "", imageUrl: "" });
+    console.log("handle submit 5");
   };
-
+  
   const handleImageUpload = (url: string) => {
     setFormData((prevData) => ({ ...prevData, imageUrl: url }));
   };
-
+  
   return (
     <div className="ngo-form-wrapper"> {/* Centering wrapper */}
       <div className="ngo-form-container">
@@ -65,11 +74,11 @@ const NgoSignupForm: React.FC = () => {
           <CloudinaryUpload onUpload={handleImageUpload} />
 
           {/* Show Image Preview if an image is uploaded */}
-          {formData.imageUrl && (
+          {/* {formData.imageUrl && (
             <div className="ngo-image-preview">
               <img src={formData.imageUrl} alt="Uploaded NGO" className="ngo-preview-img"/>
             </div>
-          )}
+          )} */}
 
           <button className="ngo-form-button" type="submit">{isPending ? "Confirming..." : "Sign Up"}</button>
         </form>
