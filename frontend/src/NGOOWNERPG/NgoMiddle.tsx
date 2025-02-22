@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"; 
 import { useAccount } from 'wagmi';
-import { address, abi } from "../../../hardhat-back/deployments/sepolia/NGOFunding.json";
+// import { address, abi } from "../../../hardhat-back/deployments/sepolia/NGOFunding.json";
 
 const NgoMiddle = () => {
     const navigate = useNavigate(); 
