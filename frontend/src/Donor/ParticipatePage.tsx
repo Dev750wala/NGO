@@ -1,8 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import './participate.css';
 
 const ParticipatePage = () => {
-    const [selectedProject, setSelectedProject] = useState(null);
+    const location = useLocation();
+    const { ngo } = location.state || {}; // Getting NGO data passed from the DonorCard component
+    interface Project {
+        title: string;
+        description: string;
+        images: string[];
+    }
+    
+    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const [activeTab, setActiveTab] = useState('description');
     const [donatePopup, setDonatePopup] = useState(false);
     const [donationAmount, setDonationAmount] = useState('');
@@ -23,36 +32,36 @@ const ParticipatePage = () => {
         setDonatePopup(true);
     };
 
+    useEffect(() => {
+        // Reset selected project when ngo changes
+        setSelectedProject(null);
+    }, [ngo]);
+
+    if (!ngo) return <div>Loading...</div>; // Fallback in case the NGO data is not available
+
     return (
         <div className="participatemaincontainer">
             <div className="participatecontainer">
                 <div className="participateimage"></div>
                 <div className="participatedetails">
-                    <h2 className="ngoname">NGO name</h2>
-                    <p className="ngodescription">
-                        <strong>What is Lorem Ipsum?</strong> <br />
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry...
-                    </p>
+                    <h2 className="ngoname">{ngo.name}</h2>
+                    <p className="ngodescription">{ngo.description}</p>
                     <h3 className="projecttitle">Projects:</h3>
                     <ul className="projectlist">
-                        <li>
-                            <span>🔹 🏫 Build 10 Schools - ₹5,00,000 Goal</span>
-                            <div className="progressbar">
-                                <div className="progress" style={{ width: "60%" }}></div>
-                            </div>
-                            <button className="donate-btn" onClick={() => openPopup("Build 10 Schools", "This project aims to construct 10 schools in underprivileged areas...", ["/images/school1.jpg", "/images/school2.jpg"]) }>
-                                View
-                            </button>
-                        </li>
-                        <li>
-                            <span>🔹 📚 Provide Books to 500 Kids - ₹50,000 Goal</span>
-                            <div className="progressbar">
-                                <div className="progress" style={{ width: "80%" }}></div>
-                            </div>
-                            <button className="donate-btn" onClick={() => openPopup("Provide Books to 500 Kids", "Helping 500 children receive quality education...", ["/images/books1.jpg", "/images/books2.jpg"]) }>
-                                View
-                            </button>
-                        </li>
+                        {ngo.tasks.map((task, index) => (
+                            <li key={index}>
+                                <span>🔹 {task.title} - {task.goal} Goal</span>
+                                <div className="progressbar">
+                                    <div className="progress" style={{ width: `${task.progress}%` }}></div>
+                                    <div className="progress" style={{ width: `${task.progress}%` }}></div></div>
+                                <button 
+                                    className="donate-btn" 
+                                    onClick={() => openPopup(task.title, task.description, task.images)}
+                                >
+                                    View
+                                </button>
+                            </li>
+                        ))}
                     </ul>
                 </div>
             </div>
@@ -65,10 +74,18 @@ const ParticipatePage = () => {
                         {!donatePopup ? (
                             <>
                                 <div className="popup-tabs">
-                                    <button id="buttonshead" className={`tab-button ${activeTab === 'description' ? 'active' : ''}`} onClick={() => setActiveTab('description')}>
+                                    <button 
+                                        id="buttonshead" 
+                                        className={`tab-button ${activeTab === 'description' ? 'active' : ''}`} 
+                                        onClick={() => setActiveTab('description')}
+                                    >
                                         Description
                                     </button>
-                                    <button id="buttonshead" className={`tab-button ${activeTab === 'images' ? 'active' : ''}`} onClick={() => setActiveTab('images')}>
+                                    <button 
+                                        id="buttonshead" 
+                                        className={`tab-button ${activeTab === 'images' ? 'active' : ''}`} 
+                                        onClick={() => setActiveTab('images')}
+                                    >
                                         Images
                                     </button>
                                 </div>
@@ -113,4 +130,3 @@ const ParticipatePage = () => {
 };
 
 export default ParticipatePage;
- 

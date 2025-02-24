@@ -5,7 +5,7 @@ pragma solidity ^0.8.8;
 contract NGOFunding {
     address public owner;
     uint256 constant VOTING_PERIOD = 7 days;
-    uint256 constant REFUND_WINDOW = 90 days;
+    // uint256 constant REFUND_WINDOW = 90 days;
     uint256 constant VOTER_REWARD_PERCENTAGE = 5;
     uint256 constant VOTING_THRESHOLD = 50;
 
